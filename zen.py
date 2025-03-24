@@ -7,9 +7,9 @@ from django.core.management import execute_from_command_line
 from django.urls import path
 from django.http import HttpResponse
 
-
-ROOT_URLCONF=__name__,
+ROOT_URLCONF=__name__
 DEBUG=True
+SECRET_KEY='secret'
 
 title, _, *quotes = "".join([this.d.get(i, i) for i in this.s]).splitlines()
 
