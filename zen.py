@@ -2,7 +2,6 @@ import sys
 import this
 from random import choice
 
-from django.conf import settings
 from django.core.management import execute_from_command_line
 from django.urls import path
 from django.http import HttpResponse
