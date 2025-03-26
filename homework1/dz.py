@@ -4,26 +4,26 @@ import importlib
 
 from django.shortcuts import render
 from django.core.management import execute_from_command_line
-from django.conf import settings
 from django.urls import path
 from django.http import HttpResponseNotFound, HttpResponse
 
-settings.configure(
-    ROOT_URLCONF=__name__,
-    DEBUG=True,
-    SECRET_KEY='secret',
-    TEMPLATES=[
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(os.path.dirname(__file__))],
-            'APP_DIRS': False,
-        }
-    ],
-)
+
+ROOT_URLCONF=__name__
+DEBUG=True
+SECRET_KEY='secret'
+TEMPLATES=[
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(os.path.dirname(__file__))],
+        'APP_DIRS': False,
+    }
+]
+
 
 def home(request):
     modules = [name for name in sys.builtin_module_names if not name.startswith("_")]
     return render(request, template_name="home.html", context={"list_of_modules":modules, "doc": True})
+
 
 def handler(request, module_name):
     try:
@@ -56,4 +56,5 @@ urlpatterns = [
 	path('doc/<module_name>/<function>', doc_of_function)
 ]
 
-execute_from_command_line(sys.argv)
+if __name__ == "__main__":
+    execute_from_command_line(sys.argv)
