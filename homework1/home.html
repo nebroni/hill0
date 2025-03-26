@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        {% for module in list_of_modules %}
+        {% if doc %}
+        <h4><li><a href="{{ module }}">{{ module }}</a></li></h4>
+        {% else %}
+        <h4><li><a href="{{name}}/{{module}}">{{ module }}</a></li></h4>
+        {% endif %}
+        
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>

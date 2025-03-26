@@ -24,12 +24,14 @@ template = """
 </html>
 """
 
-def hello(request):
-    return HttpResponse(template.format(title=title, quote=choice(quotes)))
+def handler(request, index):
+    return HttpResponse(template.format(title=title, quote=quotes[index]))
 
 
 urlpatterns = [
-    path("", hello),
+    path("quote/<int:index>", handler),
 ]
 
-execute_from_command_line(sys.argv)
+
+if __name__ == "__main__":
+    execute_from_command_line(sys.argv)
