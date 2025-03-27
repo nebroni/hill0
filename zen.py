@@ -1,35 +1,35 @@
 import sys
 import this
-from random import choice
 
 from django.core.management import execute_from_command_line
 from django.urls import path
-from django.http import HttpResponse
+from django.shortcuts import render
+
 
 ROOT_URLCONF=__name__
 DEBUG=True
 SECRET_KEY='secret'
+TEMPLATES = [
+    {
+        "BACKEND": 'django.template.backends.django.DjangoTemplates',
+        "DIRS": ['templates/']
+    }
+]
 
 title, _, *quotes = "".join([this.d.get(i, i) for i in this.s]).splitlines()
 
-template = """
-<!DOCTYPE html>
-<html>
-<head>
-<title>{title}</title>
-</head>
-<body>
-<h1>{quote}</h1>
-</body>
-</html>
-"""
 
-def handler(request, index):
-    return HttpResponse(template.format(title=title, quote=quotes[index]))
+def home(request):
+    return render(request, "home.html", {"quotes": quotes})
+
+
+def index(request, index):
+    return render(request, "index.html", {"title": title, "quote": quotes[index]})
 
 
 urlpatterns = [
-    path("quote/<int:index>", handler),
+    path("quotes/", home),
+    path("quotes/<int:index>", index),
 ]
 
 
